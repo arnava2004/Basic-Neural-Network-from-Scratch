@@ -1,2 +1,3 @@
 # Basic-Neural-Network-from-Scratch
-multilayer perceptron neural network library built from scratch w/ python and numpy
+During my spring break I decided that the best course of action to progress my knowledge was to build a neural network from scratch.
+
