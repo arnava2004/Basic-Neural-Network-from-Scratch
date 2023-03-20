@@ -5,7 +5,7 @@ import tensorflow as tf
 ##Let's load the MNIST dataset using tensorflow and keras (THE ONLY TIME)
 (X_train, y_train), (X_test, y_test) = tf.keras.datasets.mnist.load_data()
 
-#One hot encoding for the datasets, makes life easier for results neurons
+# This code is for One hot encoding for the datasets, makes life easier for results neurons
 def categorical(x, n_col = None):
     if (not n_col):
         n_col = np.amax(x) + 1
