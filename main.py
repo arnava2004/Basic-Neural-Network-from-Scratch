@@ -159,18 +159,19 @@ class Network():
   def __call__(self, x):
     return self.forward(x)
 
-# Now reaching the final stages of the neural network, I am just making two helper methods to make the final process of 
-# 
+# Now reaching the final stages of the neural network, I am just making two helper methods to make the final process easier
 
 # This function returns the accuracy of the model based on the final outputted array predicting
 # what number the inputted image is MOST LIKELY (higher number, higher the chance)
 def accuracy(correctOuptut, predictedOutput):
     return np.sum(correctOuptut == predictedOutput, axis = 0) / len(correctOuptut)
 
-# This batch_loader returns 
+# This batch_loader returns the images split into different batches, default batch size being 64
+# Every iteration in the for loop of each EPOCH training will handle 64 images at once 
 def batch_loader(X, y = None, batch_size=64):
   n_samples = X.shape[0]
   for i in np.arange(0, n_samples, batch_size):
+    # min(i + batch_size, n_samples) is just in case we reach last batch and i + 64 > total samples
     begin, end = i, min(i + batch_size, n_samples)
     if y is not None:
       yield X[begin:end], y[begin: end]
@@ -180,12 +181,20 @@ def batch_loader(X, y = None, batch_size=64):
 
 # We use CrossEntropy function (results) to calculate a single probability value 
 results = CrossEntropy()
+
 # We can edit the inner layers' neuron count by adding two more values after outputNum, but for now it is 256 and 128
 neuralNetworkModel = Network(inputNum, outputNum, lr=1e-3)
 
 # Number of EPOCHS can be changed, more EPOCHS means more iterations to train with over the same data
 EPOCHS = 5
 
+# This is the training and result of our neural network, the culmination of all the loss, activation, and layer classes we made
+# Our training loop does as follows:
+# 1: We do a forward pass to go through the entire neural network and get the resulting probabilities
+# 2: We calculate the loss and gradient, appending it to our loss list, calculuate the accuracies and append
+# 3: We get the error and with it, backpropogate and update our weights and balances
+# 4: We repeat the process from steps 1-3 continuously until we run out of batches, and then print out our average loss and accuracy
+# 5: We move onto our next EPOCH and start from step 1
 for epoch in range(EPOCHS):
   # Arrays containing the losses and accuracies that we can append to and find the mean of when calculating averages of the 
   # losses and accuracies for every epoch
