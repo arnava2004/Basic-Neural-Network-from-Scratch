@@ -179,7 +179,8 @@ def batch_loader(X, y = None, batch_size=64):
       yield X[begin:end]
 
 
-# We use CrossEntropy function (results) to calculate a single probability value 
+# We use CrossEntropy function (results) to calculate a single probability value, we will only use the results variable to 
+# assess our loss, which will proceed to be used to back propogate in the neural network model
 results = CrossEntropy()
 
 # We can edit the inner layers' neuron count by adding two more values after outputNum, but for now it is 256 and 128
